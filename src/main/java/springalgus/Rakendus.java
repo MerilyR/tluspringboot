@@ -9,12 +9,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class Rakendus {
 	@RequestMapping("/algus")
     String tervitusfunktsioon() {
-        return "Ahoi!";
+        return "Tere hommikust!";
     }
     
     @RequestMapping("/tervitus")
     String tervitus2(String eesnimi){
         return "Tere, "+eesnimi;
+    }
+    
+    @RequestMapping("/korrutus")
+    int korrutamine (int a, int b){
+        return a*b;
+    }
+    
+    @RequestMapping("/division")
+    String divide (int a, int b){
+        return a+" divided by "+b+" equals "+a/b;
     }
  
     public static void main(String[] args) {

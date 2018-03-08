@@ -11,17 +11,21 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
             let xhr= new XMLHttpRequest();
+            var field = "";
             xhr.onreadystatechange=showResult;
             function getValues(){
+                field = "result";
                 let a1 = document.getElementById("a").value;
                 let b1 = document.getElementById("b").value;
                 let source="/korrutus?a="+a1+"&b="+b1;
                 xhr.open("GET", source, true);
                 xhr.send();
             }
+            
             function showResult(){
                 if(xhr.readyState==4){
-                    document.getElementById("result").innerHTML+=xhr.responseText;
+                    console.log("field = "+field);
+                    document.getElementById(field).innerHTML+=xhr.responseText;
                 }
             }
         </script>
@@ -39,6 +43,8 @@ and open the template in the editor.
         <input type="number" id="a" /> x
         <input type="number" id="b" />
         <input type="button" value="=" onclick="getValues()" />
-        <span id="result">Result is ... </span>
+        <span id="result">Result is ... </span><br><br>
+        
+        
     </body>
 </html>

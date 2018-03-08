@@ -26,7 +26,18 @@ public class Rakendus {
     String divide (int a, int b){
         return a+" divided by "+b+" equals "+a/b;
     }
- 
+    
+    @RequestMapping("/sum")
+    int sum (String numbers) {
+//        int sum = 0;
+//        String[] numberSplit = numbers.split(",");
+//        for (String n : numberSplit)
+//            sum += Integer.parseInt(n.trim());
+//        return sum;
+        return java.util.Arrays.stream(numbers.split(",")).
+                mapToInt(s -> Integer.parseInt(s.trim())).sum();
+    }
+        
     public static void main(String[] args) {
 		//System.getProperties().put("server.port", 40305);
         SpringApplication.run(Rakendus.class, args);

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Calculations</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            let xhr = new XMLHttpRequest();
+            var field = "";
+            xhr.onreadystatechange=showResult;
+            
+            function addBox(){
+                document.getElementById("additionArea").innerHTML +=
+                    "<input type='number'/><br>";
+            }
+            
+            function showResult(){
+                if(xhr.readyState==4){
+                    document.getElementById(field).innerHTML+=xhr.responseText;
+                }
+            }
+            
+            function addByThree(){
+                field = "addByThreeResult";
+                let a = document.getElementById("a3").value;
+                let b = document.getElementById("b3").value;
+                let c = document.getElementById("c3").value;
+                let source = "/sum?numbers="+a+","+b+","+c;
+                xhr.open("GET", source, true);
+                xhr.send();
+            }
+            
+            function addAll(){
+                field ="addAllResult";
+                let numbers = document.getElementById("numbers").value;
+                xhr.open("GET", "/sum?numbers="+numbers, true);
+                xhr.send();
+            }
+            
+            function addition(){
+                field = "additionResult";
+                let boxes = document.getElementById("additionArea").getElementsByTagName("input");
+                content = Array.prototype.slice.call(boxes).map(box => box.value).join(",");
+                xhr.open("GET", "/sum?numbers="+content, true);
+                xhr.send();
+            }
+            
+        </script>
+    </head>
+    <body onLoad="addBox(); addBox()">
+        
+        <h1>Calculations</h1>
+        
+        <b>Task no. 2</b><br>
+        Addition: <br>
+        2.1     By three: 
+        <input type="number" id="a3" /> +
+        <input type="number" id ="b3" /> +
+        <input type="number" id ="c3" /> 
+        <input type="button" value ="=" onclick="addByThree()" />
+        <span id="addByThreeResult"> ... </span><br><br>
+        
+        2.2     No limit:
+        <input type="text" id="numbers" />
+        <input type="button" value = "Add all" onclick ="addAll()" /> Zum = 
+        <b><span id="addAllResult">  </span></b><br>
+        <br>
+        
+        2.3     No limit: <br>
+        <input type="button" value="add" onclick ="addBox()" /><br>
+        <div id = "additionArea"></div>
+        <input type="button" value="sum" onclick="addition()" /><br>
+        <span id="additionResult">Zum is ... </span>
+        
+        
+    </body>
+</html>
